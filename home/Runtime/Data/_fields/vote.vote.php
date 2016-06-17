@@ -1,0 +1,1 @@
+<?php	return array ( 0 => 'id', 1 => 'v_name', 2 => 'v_about', 3 => 'v_pic', 4 => 'v_type', 5 => 'v_count', '_autoinc' => true, '_pk' => 'id', '_type' => array ( 'id' => 'int(11)', 'v_name' => 'text', 'v_about' => 'text', 'v_pic' => 'text', 'v_type' => 'int(11)', 'v_count' => 'int(11)', ), );?>

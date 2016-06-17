@@ -1,0 +1,1 @@
+<?php	return array ( 0 => 'id', 1 => 'vote_title', 2 => 'vote_pic', 3 => 'vote_about', 4 => 'vote_remarks', 5 => 'vote_max', '_autoinc' => false, '_type' => array ( 'id' => 'int(11)', 'vote_title' => 'text', 'vote_pic' => 'text', 'vote_about' => 'text', 'vote_remarks' => 'text', 'vote_max' => 'int(11)', ), );?>

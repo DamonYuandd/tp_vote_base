@@ -1,0 +1,210 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<title>投票系统1.0管理页面</title>
+<style type="text/css">
+body{background-color:#3399ff;
+text-align:center;}
+.main{
+	width:998px;
+	height:auto;
+	margin:10px auto;
+	text-align:left;
+	border:1px solid #ccc;
+	background-color:#FFF;
+	}
+
+.menu{
+	width:998px;
+	height:30px;
+	line-height:30px;
+	border-bottom:1px solid #ccc;
+	background-color:#EEE;
+	text-align:center;}
+ul{
+	list-style:none;}
+table{background-color:#000;
+margin:5px 20px;}
+td{background-color:#FFF}
+</style>
+<script type="text/javascript" charset="utf-8" src="/public/ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/public/ueditor/ueditor.all.min.js"> </script>
+    <!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
+    <!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
+    <script type="text/javascript" charset="utf-8" src="/public/ueditor/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript" src="/public/js/jquery.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	$(".menu").click(function(){$(this).siblings().toggle();})
+	})
+</script>
+</head>
+
+<body>
+<div class="main">欢迎管理员{$admin}登录！
+<a href="__APP__/index/logout">退出登录</a>
+</div>
+<div class="main">
+
+	<div class="menu">投票设置</div>
+	<div class="options">
+			<form action="__APP__/login/setoptions" method="post" enctype="multipart/form-data" name="form1" id="form1">
+								<table width="900" border="0" cellspacing="1">
+										<tr>
+												<td width="100">投票标题</td>
+												<td width="700"><input name="vote_title" type="text" id="vote_title" size="40" value="{$vote_title}" /></td>
+										</tr>
+										<tr>
+												<td>主题图片</td>
+												<td><input name="vote_pic" type="file" id="vote_pic" size="50" value="{$vote_pic}" /></td>
+										</tr>
+										<tr>
+												<td>投票说明</td>
+												<td width="800">
+												<script type="text/plain" id="vote_about" name="vote_about" style="width:800px;height:240px;">
+												{$vote_about|htmlspecialchars_decode|stripslashes}
+												</script>
+												 
+												</td>
+												
+										</tr>
+										<tr>
+												<td>每IP最大票数</td>
+												<td><input name="vote_max" type="text" id="vote_max" size="20" value="{$vote_max}" />
+												</td>
+										</tr>
+								</table>
+								<input type="submit" name="button" id="button" value="提交" />
+			</form>
+	</div>
+</div>
+<div class="main">
+<div class="menu">类别设置</div>
+	<div class="options">
+			<form action="__APP__/login/settype" method="post" name="form5" id="form5">
+			
+								<table width="800" border="0" cellspacing="1">
+								<tr>
+									<td>已有类别</td>
+									<td>
+									<volist name="v_type" id="tp">
+											<input name="delid" type="checkbox" value="{$tp.type_id}" />{$tp.type_name}&nbsp;
+									</volist>
+									（勾选类别提交后可删除！）
+									</td>
+								</tr>
+										<tr>
+												<td width="90">添加类别</td>
+												<td width="700"><input name="type_name" type="text" id="type_name" size="40" value="" /></td>
+										</tr>
+								</table>
+								<input type="submit" name="button" id="button" value="提交" />
+			</form>
+	</div>
+</div>
+
+
+<div class="main">
+	<div class="menu">投票项</div>
+	<div class="options">
+
+			<form action="__APP__/login/addvotes" method="post" enctype="multipart/form-data" name="form3" id="form3">
+			<table width="900" border="0" cellspacing="1">
+					<tr>
+							<td width="80">项目：</td>
+							<td width="598"><input name="v_name" type="text" value="{$v_name}"/></td>
+					</tr>
+					<tr>
+							<td>图片：</td>
+							<td><input name="v_pic" type="file" /></td>
+					</tr>
+					<tr>
+							<td>说明：</td>
+							<td width="800">
+							<script type="text/plain" id="v_about" name="v_about" style="width:800px;height:240px;">
+												
+												</script>
+					</tr>
+					<tr>
+							<td>类别：</td>
+							<td><select name="v_type">
+								<volist name="v_type" id="tp">
+								<option value="{$tp.type_id}">{$tp.type_name|stripslashes}</option>
+										
+								</volist>
+									
+									
+							</select></td>
+					</tr>
+					<tr>
+							<td colspan="2"><input name="" type="submit" value="提交" /></td>
+						
+					</tr>
+			</table>
+			</form>
+	<table border="0" cellpadding="0" cellspacing="1" style="background-color:#333; text-align:center">
+	<tr style="background-color:#fff"><td width="120">投票项名称</td><td width="300">类别</td><td width="80">处理</td></tr>
+	<volist name="vote_data" id="vo">
+	<tr style="background-color:#fff"><td>{$vo.v_name}</td><td>{$vo.v_type}</td><td><a href="__APP__/login/delvotes/id/{$vo.id}" onclick="return confirm(确定要删除吗？)">删除</a></td></tr>
+	</volist>
+	</table>
+	</div>
+</div>
+<div class="main">
+	<div class="menu">投票结果</div>
+	<div class="options">
+	<table cellspacing="1">
+	<tr style="background-color:#fff"><td width="120">投票项名称</td><td width="80">投票项类别</td><td width="300">票数</td></tr>
+	<volist name="vote_data" id="vo">
+	<tr style="background-color:#fff"><td>{$vo.v_name}</td><td>{$vo.v_type}</td><td><div style="width:{$vo.v_count}px; text-align:center; background-color:#3FF; border:1px solid #3CF">{$vo.v_count}</div></td></tr>
+	</volist>
+	</table>	
+	</div>
+</div>
+<div class="main">
+
+	<div class="menu">用户管理</div>
+	<div class="options">
+			<form id="form2" name="form2" method="post" action="__APP__/login/setuser">
+			<table width="800" border="0" cellspacing="1">
+					<tr>
+							<td width="90">原用户名：</td>
+							<td width="700"><input type="text" name="old_username" id="old_username" value="{$username}"/></td>
+					</tr>
+					<tr>
+							<td>原密码：</td>
+							<td><input type="password" name="old_password" id="old_password" /></td>
+					</tr>					
+					<tr>
+							<td>新用户名：</td>
+							<td><input type="text" name="new_username" id="new_username" /></td>
+					</tr>
+					<tr>
+							<td>新密码：</td>
+							<td><input type="password" name="new_password" id="new_password" /></td>
+					</tr>
+					<tr>
+							<td colspan="2"><input type="submit" name="button2" id="button2" value="提  交" /></td>
+							
+					</tr>
+			</table>
+
+
+					
+			</form>
+	</div>
+</div>
+
+
+
+
+
+
+</body>
+<script  type="text/javascript">
+ UE.getEditor('vote_about');
+ UE.getEditor('v_about');
+</script>
+</html>

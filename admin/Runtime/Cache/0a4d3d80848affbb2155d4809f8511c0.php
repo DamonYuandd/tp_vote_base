@@ -1,0 +1,46 @@
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>投票系统1.0</title><style type="text/css">body{
+	background-color:#3399ff;
+text-align:center;}
+#loginmain{
+	width:800px;
+	height:100%;
+	margin:100px auto;}
+	
+#loginform{
+	position:absolute;
+	top:50%;
+	width:800px;
+	height:300px;
+	margin-top:-150px;
+	background-image:url(/public/iamge/logopic.jpg);
+	}
+#loginform table{
+	height:100px;
+	float:right;
+	margin-top:60px;
+}
+#loginform table tr{
+	height:30px;
+	width:100px;
+	line-height:40px;
+	text-align:left;}
+#loginform input
+{
+	font-size:16px;
+	height:30px;
+	border:1px solid #39F;}
+#loginform input#btn{
+	width:200px;
+	background-color:#39f;
+}
+	
+</style><script type="text/javascript" src="/public/js/jquery.min.js"></script><script type="text/javascript">$(function(){
+	$("#password").focus(function(){
+		$(this).val('');})
+	$("#username").focus(function(){
+		$(this).val('');})
+	
+	
+	
+	})
+</script></head><body><div id="loginmain"><div id="loginform"><form action="" method="post"><table><tr><td>用户名：</td><td><input type="text" id="username" name="username" value="admin"/></td></tr><tr><td>密&nbsp;&nbsp;码：</td><td><input type="password" id="password" name="password" value="admin"/></td></tr><tr><td>验证码：</td><td><input name="verify" type="text" size="4" maxlength="4"/><img src='__APP__/Public/verify/' /></td></tr><tr><td colspan="2" align="center"><input id="btn" type="submit" value="登&nbsp;&nbsp;&nbsp;&nbsp;录" name="submit" /></td></tr><tr><td colspan="2"><?php echo ($errorinfo); ?></td></tr></table></form></div></div></body></html>
